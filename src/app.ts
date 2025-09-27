@@ -11,18 +11,18 @@ const app = express();
 app.use(express.json());
 // app.use(express.urlencoded({ extended: true }));
 
-app.get('/health', (_req, res) => res.json({ ok: true }));
-app.get('/health/db', async (_req, res) => {
-  try {
-    await sequelize.authenticate();
-    res.json({ db: 'up' });
-  } catch (e: any) {
-    res.status(500).json({ db: 'down', error: e?.message });
-  }
-});
+// app.get('/health', (_req, res) => res.json({ ok: true }));
+// app.get('/health/db', async (_req, res) => {
+//   try {
+//     await sequelize.authenticate();
+//     res.json({ db: 'up' });
+//   } catch (e: any) {
+//     res.status(500).json({ db: 'down', error: e?.message });
+//   }
+// });
 
 // api
-app.use('/api', apiRoutes);
+app.use('/api/v1/', apiRoutes);
 
 // 404
 app.use((req, _res, next) => {
