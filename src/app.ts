@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 import apiRoutes from './routes';
 import { AppError } from "./errors/AppError";
-import { sequelize } from './config/database';
+// import { sequelize } from './config/database';
 
 dotenv.config();
 
