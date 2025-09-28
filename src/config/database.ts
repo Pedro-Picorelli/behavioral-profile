@@ -20,6 +20,8 @@ export const initSequelize = async () => {
 
   // 2) Registra modelos e associações
   await import('../models/Users.model');
+  await import('../models/People.model');
+  console.log('✅ Modelos registrados');
 
   // 3) Sincroniza
   console.log(process.env.NODE_ENV);

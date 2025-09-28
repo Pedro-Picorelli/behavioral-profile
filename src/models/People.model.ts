@@ -1,70 +1,70 @@
 import { DataTypes, Model, Optional } from "sequelize";
 import { sequelize } from "../config/database";
 
-export interface UsersAttributes {
+export interface PeopleAttributes {
     id: string;
-    email: string;
-    password: string;
-    isActive?: boolean;
-    typeId?: number;
+    name: string;
+    cpf: string;
+    birthDate: Date;
+    sex: string;
+    userId?: string;
     createdAt?: Date;
     updatedAt?: Date;
     deleteAt?: Date;
 }
-type Creation = Optional<UsersAttributes, 'id'>
+type Creation = Optional<PeopleAttributes, 'id'>;
 
-export class Users extends Model<UsersAttributes, Creation> implements UsersAttributes {
+export class People extends Model<PeopleAttributes, Creation> implements PeopleAttributes {
     public id!: string;
-    public email!: string;
-    public password!: string;
-    public isActive?: boolean;
-    public typeId?: number;
+    public name!: string;
+    public cpf!: string;
+    public birthDate!: Date;
+    public sex!: string;
+    public userId?: string;
     public createdAt?: Date;
     public updatedAt?: Date;
     public deleteAt?: Date;
 }
 
-Users.init(
+People.init(
     {
         id: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
         },
-        email: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            unique: true,
-        },
-        password: {
+        name: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        isActive: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-            defaultValue: true,
-        },
-        typeId: {
-            type: DataTypes.INTEGER,
-            defaultValue: 1,
+        cpf: {
+            type: DataTypes.STRING,
             allowNull: false,
         },
-        createdAt: {
+        birthDate: {
             type: DataTypes.DATE,
             allowNull: false,
         },
+        sex: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        userId: {
+            type: DataTypes.UUID,
+        },
+        createdAt: {
+            type: DataTypes.DATE,
+        },
         updatedAt: {
-            type: DataTypes.DATE
+            type: DataTypes.DATE,
         },
         deleteAt: {
-            type: DataTypes.DATE
-        },
-    },
-    {
-        tableName: 'users',
+            type: DataTypes.DATE,
+        }
+    },{
+        tableName: 'people',
         sequelize,
         paranoid: true,
-        deletedAt: 'deleteAt',
+        deletedAt: 'deleteAt'
     }
 );
