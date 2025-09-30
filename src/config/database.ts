@@ -5,13 +5,26 @@ dotenv.config();
 
 export const sequelize = new Sequelize(
     {
+        dialect: "postgres",
         host: process.env.DB_HOST || "db",
         port: Number(process.env.DB_PORT) || 5432,
-        dialect: (process.env.DB_DIALECT as any) || "postgres",
-        logging: false,
-        username: process.env.DB_USER || "postgres" as string,
+        username: process.env.DB_USER || "username" as string,
         password: process.env.DB_PASS || "password" as string,
         database: process.env.DB_NAME || "mybank" as string,
     }
 );
 
+export const initSequelize = async () => {
+//   await sequelize.authenticate();
+//   console.log('✅ Autenticado no Postgres');
+
+  // 2) Registra modelos e associações
+  await import('../models/Users.model');
+  await import('../models/People.model');
+  console.log('✅ Modelos registrados');
+
+  // 3) Sincroniza
+  console.log(process.env.NODE_ENV);
+  await sequelize.sync({ alter: process.env.NODE_ENV !== 'production' });
+  console.log('✅ DB conectado e modelos sincronizados');
+};
