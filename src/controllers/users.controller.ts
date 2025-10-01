@@ -59,9 +59,15 @@ export const UsersController = {
             next(e);
         }
     },
-    async list() {},
-    async update() {},
-    async delete() {},
+    async list(req: Request, res: Response, next: NextFunction) {
+        res.status(404).json({ message: 'Rota not fund' });
+    },
+    async update(req: Request, res: Response, next: NextFunction) {
+        res.status(404).json({ message: 'Rota not fund' });
+    },
+    async delete(req: Request, res: Response, next: NextFunction) {
+        res.status(404).json({ message: 'Rota not fund' });
+    },
 };
 
 export default UsersController;

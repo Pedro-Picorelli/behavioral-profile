@@ -6,8 +6,8 @@ export interface PeopleAttributes {
     name: string;
     cpf: string;
     birthDate: Date;
-    sex: string;
-    userId?: string;
+    sex: "M" | "F" | "O";
+    userId?: string  | undefined;
     createdAt?: Date;
     updatedAt?: Date;
     deleteAt?: Date;
@@ -19,8 +19,8 @@ export class People extends Model<PeopleAttributes, Creation> implements PeopleA
     public name!: string;
     public cpf!: string;
     public birthDate!: Date;
-    public sex!: string;
-    public userId?: string;
+    public sex!: "M" | "F" | "O";
+    public userId?: string  | undefined;
     public createdAt?: Date;
     public updatedAt?: Date;
     public deleteAt?: Date;
@@ -40,13 +40,14 @@ People.init(
         cpf: {
             type: DataTypes.STRING,
             allowNull: false,
+            unique: true,
         },
         birthDate: {
             type: DataTypes.DATE,
             allowNull: false,
         },
         sex: {
-            type: DataTypes.STRING,
+            type: DataTypes.ENUM('M', 'F', 'O'),
             allowNull: false,
         },
         userId: {
@@ -62,7 +63,7 @@ People.init(
             type: DataTypes.DATE,
         }
     },{
-        tableName: 'people',
+        tableName: 'People',
         sequelize,
         paranoid: true,
         deletedAt: 'deleteAt'

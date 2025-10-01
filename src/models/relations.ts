@@ -1,18 +1,18 @@
-import { User } from "./User";
-import { People } from "./People";
-import { Test } from "./Test";
-import { WordAnswer } from "./WordAnswer";
+import { Users } from "./Users.model";
+import { People } from "./People.model";
+import { ProfileTests } from "./ProfileTests.model";
+import { WordsAnswered } from "./WordsAnswered.model";
 
 export const setupAssociations = () => {
   // People -> User
-  People.belongsTo(User, { foreignKey: "userId", as: "user" });
-  User.hasOne(People, { foreignKey: "userId", as: "people" });
+  People.belongsTo(Users, { foreignKey: "userId", as: "user" });
+  Users.hasOne(People, { foreignKey: "userId", as: "people" });
 
   // Test -> People
-  Test.belongsTo(People, { foreignKey: "peopleId", as: "people" });
-  People.hasMany(Test, { foreignKey: "peopleId", as: "tests" });
+  ProfileTests.belongsTo(People, { foreignKey: "peopleId", as: "people" });
+  People.hasMany(ProfileTests, { foreignKey: "peopleId", as: "profileTests" });
 
   // WordAnswer -> Test
-  WordAnswer.belongsTo(Test, { foreignKey: "testId", as: "test" });
-  Test.hasMany(WordAnswer, { foreignKey: "testId", as: "wordAnswers" });
+  WordsAnswered.belongsTo(ProfileTests, { foreignKey: "profileTestId", as: "profileTests" });
+  ProfileTests.hasMany(WordsAnswered, { foreignKey: "profileTestId", as: "wordsAnswered" });
 }
