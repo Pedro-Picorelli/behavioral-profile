@@ -1,6 +1,6 @@
 import app from './app';
 import dotenv from 'dotenv';
-import { sequelize } from './config/database';
+// import { sequelize } from './models';
 import { initSequelize } from './models/index';
 
 dotenv.config();

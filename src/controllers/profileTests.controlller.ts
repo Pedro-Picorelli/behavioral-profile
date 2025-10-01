@@ -10,9 +10,48 @@ export const ProfileTestsController = {
     },
 }
 
+export default ProfileTestsController
 /*
+fullTest: {
+    person: Person
+    startAt: Date;
+    finishAt: Date;
+    personalTest: Test
+    professionalTest: Test
+}
+
+Person: {
+    id: string | undefined;
+    cpf: string;
+    name: string;
+    birthDate: Date;
+    sex: "M" | "F" | "O";
+    userId: string | undefined;
+}
+
+Test: {
+    type: "1" | "2";
+    wordsAnswered: [
+        {
+            wordId: number;
+        },
+        {
+            wordId: number;
+        },
+        {
+            wordId: number;
+        },
+        {
+            wordId: number;
+        },
+        {
+            wordId: number;
+        },
+    ]
+}
+
 {
-    peopleId: string;
+    peopleId: string; || people: People
     startAt: Date;
     finishAt: Date;
     wordsAnswered: [

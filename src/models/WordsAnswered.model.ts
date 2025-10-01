@@ -1,11 +1,12 @@
 import { DataTypes, Model, Optional } from 'sequelize';
-import { sequelize } from "../config/database";
+import { sequelize } from "./index";
 
 
 export interface WordsAnsweredAttributes {
     id: number;
     profileTestId: string;
     wordId: number;
+    typeTest: 1 | 2;
 }
 type Creation = Optional<WordsAnsweredAttributes, 'id'>
 
@@ -13,13 +14,14 @@ export class WordsAnswered extends Model<WordsAnsweredAttributes, Creation> impl
     public id!: number;
     public profileTestId!: string;
     public wordId!: number;
+    public typeTest!: 1 | 2;
 }
 
 WordsAnswered.init(
     {
         id: {
             type: DataTypes.INTEGER,
-            defaultValue: DataTypes.UUIDV4,
+            autoIncrement: true,
             primaryKey: true,
         },
         profileTestId: {
@@ -28,6 +30,10 @@ WordsAnswered.init(
         },
         wordId: {
             type: DataTypes.INTEGER,
+            allowNull: false,
+        },
+        typeTest: {
+            type: DataTypes.ENUM('1', '2'),
             allowNull: false,
         },
     },

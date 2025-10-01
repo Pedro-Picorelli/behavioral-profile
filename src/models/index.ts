@@ -20,10 +20,11 @@ export const initSequelize = async () => {
   console.log('✅ Autenticado no Postgres');
 
   // 2) Registra modelos e associações
-  await import('./User');
-  await import('./People');
-  await import('./Test');
-  await import('./WordAnswer');
+  await import('./Users.model');
+  await import('./People.model');
+  await import('./ProfileTests.model');
+  await import('./WordsAnswered.model');
+  await import('./Words.model');
   const { setupAssociations } = await import('./relations');
   setupAssociations();
 
