@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { Words } from "../models/Words.model";
+import WordsService from "../services/words.service";
 
 export const WordsController = {
     async list(_req: Request, res: Response, next: NextFunction) {
@@ -14,6 +15,12 @@ export const WordsController = {
         } catch (e: any) {
             next(e);
         }
+    },
+
+    async getByText(text: string) {
+        const w = await WordsService.getByText(text);
+        console.log(w);
+        return w;
     }
 }
 

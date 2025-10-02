@@ -1,9 +1,18 @@
 import { Request, Response, NextFunction } from "express";
+import { createProfileTestSchema, testDone } from "../schemas/profileTests.schema";
+import WordsController from "./words.controller";
 
 export const ProfileTestsController = {
     async create(req: Request, res: Response, next: NextFunction) {
         try {
-            res.status(201).json({ message: 'Rota not fund' });
+            const test = await testDone.parseAsync(req.body);
+            const testDB = await createProfileTestSchema.parseAsync(test);
+
+            const wordsPerson = test.personalTest.map(w => WordsController.getByText(w));
+            const wordsProfessional = test.professionalTest.map(w => WordsController.getByText(w));;
+
+            // console.log(test, testDB, wordsPerson, wordsProfessional);
+            res.status(201).json({test, testDB, wordsPerson, wordsProfessional});
         } catch (e: any) {
             next(e);
         }
@@ -16,8 +25,8 @@ fullTest: {
     person: Person
     startAt: Date;
     finishAt: Date;
-    personalTest: Test
-    professionalTest: Test
+    personalTest[]: Word
+    professionalTest[]: Word
 }
 
 Person: {
@@ -28,6 +37,8 @@ Person: {
     sex: "M" | "F" | "O";
     userId: string | undefined;
 }
+
+Word: string;
 
 Test: {
     type: "1" | "2";
