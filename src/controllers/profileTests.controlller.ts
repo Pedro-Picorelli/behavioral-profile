@@ -5,13 +5,14 @@ import WordsController from "./words.controller";
 export const ProfileTestsController = {
     async create(req: Request, res: Response, next: NextFunction) {
         try {
+            // Diserealizando o obj para salvar o preenchime to es suas respectivas tabelas...
             const test = await testDone.parseAsync(req.body);
             const testDB = await createProfileTestSchema.parseAsync(test);
+            const wordsPerson = await Promise.all(test.personalTest.map(async (w) => await WordsController.getByText(w)));
+            const wordsProfessional = await Promise.all(test.professionalTest.map(async (w) => await WordsController.getByText(w)));
 
-            const wordsPerson = test.personalTest.map(w => WordsController.getByText(w));
-            const wordsProfessional = test.professionalTest.map(w => WordsController.getByText(w));;
+            
 
-            // console.log(test, testDB, wordsPerson, wordsProfessional);
             res.status(201).json({test, testDB, wordsPerson, wordsProfessional});
         } catch (e: any) {
             next(e);

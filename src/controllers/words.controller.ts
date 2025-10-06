@@ -19,7 +19,6 @@ export const WordsController = {
 
     async getByText(text: string) {
         const w = await WordsService.getByText(text);
-        console.log(w);
         return w;
     }
 }
